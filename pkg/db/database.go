@@ -19,7 +19,7 @@ var DB *sql.DB
 // Открыть Базу Данных
 func DatabaseConnect() {
 	var err error
-	d := DB_struct{DB_user: "postgres", DB_password: 1010, DB_name: "HumoShop"}
+	d := DB_struct{DB_user: "postgres", DB_password: 1010, DB_name: "humoshop"}
 	conStr := fmt.Sprintf("user=%s password=%d dbname=%s sslmode=disable", d.DB_user, d.DB_password, d.DB_name)
 	DB, err = sql.Open("postgres", conStr)
 	if err != nil {
