@@ -34,7 +34,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
         }
         return
     }
-	
+
 	w.WriteHeader(200)
 	w.Write([]byte("Успешняя регистрация"))
 	return
