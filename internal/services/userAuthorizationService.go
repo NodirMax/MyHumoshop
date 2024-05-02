@@ -9,13 +9,17 @@ import (
 
 func AuthorizationUserService(u models.UserModels) (err error){
 	// передаем хеширований пароль
-	inf, err := repository.CheckingUser(u.Login, utils.Heshing(u.Password))
+	inf, err := repository.CheckingUser(u.Login)
 	if err != nil{
 		return errors.New("ошибка на стороне сервера")
 	}
-	if inf.Id == 0{
+	if inf == (models.UserModels{}){
 		return errors.New("такого пользователя нет")
 	}
-
+	z :=  utils.HeshChecking(inf.Password, u.Password)
+	if z != nil{
+		return errors.New("такого пользователя нет")
+	}
+	
 	return nil
 }

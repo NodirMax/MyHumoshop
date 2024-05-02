@@ -18,7 +18,7 @@ func Heshing(password string) (p string){
 	return string(hashedPassword)
 }
 
-func HeshChecking0(hashedPassword string ,password string)(err error){
+func HeshChecking(hashedPassword string ,password string)(err error){
     // Проверяем пароль
     err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
     if err != nil {

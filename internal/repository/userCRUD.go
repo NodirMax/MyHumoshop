@@ -21,8 +21,8 @@ func GetUserFromDB(login string) (user models.UserModels, err error) {
 }
 
 // Проверка наличия пользователя в Б.Д.
-func CheckingUser(login string, password string) (user models.UserModels, err error){
-	row := db.DB.QueryRow(`SELECT * FROM users WHERE login=$1 AND password=$2`, login, password)
+func CheckingUser(login string) (user models.UserModels, err error){
+	row := db.DB.QueryRow(`SELECT * FROM users WHERE login=$1`, login)
 	err = row.Scan(&user.Id, &user.Name, &user.Login, &user.Password)
 	if err != nil {
 		if err == sql.ErrNoRows {
