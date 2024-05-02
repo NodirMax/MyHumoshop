@@ -3,6 +3,7 @@ package services
 import (
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/repository"
+	"HumoSHOP/pkg/utils"
 	"errors"
 )
 
@@ -17,6 +18,7 @@ func RegisterUserService(user models.UserModule) (err error) {
 	}
 	
 	// Добавление нового пользоватля
+	user.Password = utils.Heshing(user.Password)
 	err = repository.CreateNewUserToDB(user)
 	if err != nil{
 		return errors.New("ошибка при создание нового пользователя")
