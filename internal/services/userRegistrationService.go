@@ -7,13 +7,13 @@ import (
 	"errors"
 )
 
-func RegisterUserService(user models.UserModule) (err error) {
+func RegisterUserService(user models.UserModels) (err error) {
 	// Проверка наличия пользователья в Б.Д.
 	inf, err := repository.GetUserFromDB(user.Login)
 	if err != nil{
 		return errors.New("ошибка")
 	}
-	if inf != (models.UserModule{}) {
+	if inf != (models.UserModels{}) {
 		return errors.New("пользователь с таким логином уже зарегистрирован")
 	}
 	

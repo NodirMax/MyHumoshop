@@ -8,7 +8,7 @@ import (
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
-	var user models.UserModule
+	var user models.UserModels
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		w.WriteHeader(401)
@@ -21,13 +21,16 @@ func Register(w http.ResponseWriter, r *http.Request) {
         // Проверяем ошибку и устанавливаем соответствующий заголовок
         switch err.Error() {
 
-        case "пользователь с таким логином уже зарегистрирован":
-			w.Write([]byte("пользователь с таким логином уже зарегистрирован"))
+		case "пользователь с таким логином уже зарегистрирован":
             w.WriteHeader(http.StatusConflict) // 409 Conflict
+			w.Write([]byte("пользователь с таким логином уже зарегистрирован"))
+		
         case "ошибка при создание нового пользователя":
             w.WriteHeader(http.StatusInternalServerError) // 500 Internal Server Error
-        }
+			w.Write([]byte("ошибка на стороне сервера"))
 		
+		}
+
         return
     }
 
