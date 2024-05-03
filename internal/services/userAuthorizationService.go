@@ -27,10 +27,10 @@ func AuthorizationUserService(u models.UserModels) (token string,err error){
 	}
 
 	// Создаем новый токен
-	token = middleware.CreateToken(u.Login)
-	err = repository.CreateTokenDB(u.Id, token)
+	token, err = middleware.GenerateToken(u.Login)
 	if err != nil{
-		return "", errors.New("ошибка")
+		return "", errors.New("ошибка при создании токена")
 	}
+
 	return token, nil
 }

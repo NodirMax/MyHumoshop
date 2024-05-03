@@ -26,10 +26,9 @@ func RegisterUserService(user models.UserModels) (token string,err error) {
 	}
 	
 	// Добавление нового токена
-	token = middleware.CreateToken(user.Login)
-	err = repository.CreateTokenDB(user.Id, token)
+	token, err = middleware.GenerateToken(user.Login)
 	if err != nil{
-		return "",errors.New("ошибка")
+		return "", errors.New("ошибка при создании токена")
 	}
 
 	return token, nil
