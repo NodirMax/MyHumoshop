@@ -16,7 +16,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	err = services.RegisterUserService(user)
+	token, err := services.RegisterUserService(user)
 	if err != nil {
         // Проверяем ошибку и устанавливаем соответствующий заголовок
         switch err.Error() {
@@ -33,8 +33,12 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
         return
     }
+	// Отправляем токен клиенту
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	response := token
+	json.NewEncoder(w).Encode(response)
 
-	w.WriteHeader(200)
 	w.Write([]byte("Успешняя регистрация"))
 	return
 }

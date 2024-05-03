@@ -1,4 +1,4 @@
-package main
+package middleware
 
 import (
 	"fmt"
@@ -8,36 +8,22 @@ import (
 )
 
 // Задаем секретный ключ, который будет использоваться для подписи токена
-var jwtKey = []byte("HumoShop")
+var JwtKey = []byte("HumoShop")
 
 // Структура для представления информации о пользователе, которая будет включена в токен
 type Claims struct {
-    Username string `json:"username"`
+    Login string `json:"login"`
     jwt.StandardClaims
 }
 
-func main() {
-    // Пример создания токена
-    token := CreateToken("example_user")
-    fmt.Println("Token:", token)
-
-    // Пример проверки токена
-    username, err := VerifyToken(token)
-    if err != nil {
-        fmt.Println("Ошибка проверки токена:", err)
-    } else {
-        fmt.Println("Имя пользователя из токена:", username)
-    }
-}
-
 // Функция для создания JWT токена
-func CreateToken(username string) string {
+func CreateToken(login string) string {
     // Устанавливаем срок действия токена на 1 час
     expirationTime := time.Now().Add(time.Hour)
 
     // Создаем структуру Claims
     claims := &Claims{
-        Username: username,
+        Login: login,
         StandardClaims: jwt.StandardClaims{
             ExpiresAt: expirationTime.Unix(),
         },
@@ -47,7 +33,7 @@ func CreateToken(username string) string {
     token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
     // Подписываем токен с использованием секретного ключа и получаем строковое представление токена
-    tokenString, err := token.SignedString(jwtKey)
+    tokenString, err := token.SignedString(JwtKey)
     if err != nil {
         fmt.Println("Ошибка создания токена:", err)
         return ""
@@ -60,7 +46,7 @@ func CreateToken(username string) string {
 func VerifyToken(tokenString string) (string, error) {
     // Парсим токен
     token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-        return jwtKey, nil
+        return JwtKey, nil
     })
 
     if err != nil {
@@ -69,7 +55,7 @@ func VerifyToken(tokenString string) (string, error) {
 
     // Проверяем валидность токена
     if claims, ok := token.Claims.(*Claims); ok && token.Valid {
-        return claims.Username, nil
+        return claims.Login, nil
     } else {
         return "", fmt.Errorf("неверный токен")
     }

@@ -2,6 +2,7 @@ package myproject
 
 import (
 	"HumoSHOP/internal/handlers"
+	"HumoSHOP/internal/middleware"
 	"log"
 	"net/http"
 
@@ -14,6 +15,13 @@ func StartRouter() {
 	router.HandleFunc("/register", handlers.Register).Methods("POST")
 	router.HandleFunc("/login", handlers.AuthorizationUzer).Methods("POST")
 
+	router2 := router.PathPrefix("/profile").Subrouter()
+	
+	// Используем middleware 
+	router2.Use(middleware.ProtectedEndpoint)
+	router2.HandleFunc("/", handlers.UserGET).Methods("GET")
+
+	//Запуск сервера на порту 8080
 	err := http.ListenAndServe(":8080", router)
 	if err != nil {
 		log.Println("SERVER listing ERROR")

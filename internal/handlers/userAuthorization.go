@@ -4,7 +4,6 @@ import (
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/services"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -17,7 +16,7 @@ func AuthorizationUzer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = services.AuthorizationUserService(user)
+	token, err := services.AuthorizationUserService(user)
 	if err != nil {
         // Проверяем ошибку и устанавливаем соответствующий заголовок
         switch err.Error() {
@@ -29,12 +28,17 @@ func AuthorizationUzer(w http.ResponseWriter, r *http.Request) {
         case "ошибка на стороне сервера":
             w.WriteHeader(http.StatusInternalServerError) // 500 Internal Server Error
 			w.Write([]byte("ошибка на стороне сервера"))
+		case "ошибка":
+			w.WriteHeader(401)
+			w.Write([]byte("Ошибка при получение токена"))
 		}
 
         return
     }
 	
-	w.WriteHeader(200)
-	fmt.Fprintf(w, "Пользователь %s вошёл в систему", user.Login)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	response := token
+	json.NewEncoder(w).Encode(response)
 	return
-}
+}	
