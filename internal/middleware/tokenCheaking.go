@@ -8,7 +8,7 @@ func ProtectedEndpoint(h http.Handler) http.Handler {
 	// Получаем токен из заголовка Authorization
 	tokenString := r.Header.Get("Authorization")
 	
-	_, err := ParseToken(tokenString)
+	login, err := ParseToken(tokenString)
 	if err != nil{
 		w.WriteHeader(401)
 		w.Write([]byte("Пользователь не обнаружен!"))
@@ -16,7 +16,7 @@ func ProtectedEndpoint(h http.Handler) http.Handler {
 	}
 
 
-	w.Header().Set("Content-Type", "application/json")
+	r.Header.Set("login", login)
 	w.WriteHeader(http.StatusOK)
 	h.ServeHTTP(w, r)
 	})

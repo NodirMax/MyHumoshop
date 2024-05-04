@@ -88,10 +88,67 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// Обработчик user->profile
+// Обработчик user->profile GET
 func UserGET(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("SECRET PAGE"))
+	login := r.Header.Get("login")
+	user, err := services.GetUserFromService(login)
+
+	if err != nil{
+		switch err.Error(){
+		case "ошибка на стороне сервера":
+			w.WriteHeader(500)
+			w.Write([]byte("Ошибка на стороне сервера!"))
+			return
+		}
+	}
+	
+	result, err := json.Marshal(user)
+	if err != nil{
+		w.WriteHeader(500)
+		w.Write([]byte("Ошибка на стороне сервера!"))
+		return
+	}
+	
+	w.WriteHeader(200)
+	w.Write(result)
 	return
 }
 
+//Обработчик user->profile PUT 
+func UserPUT(w http.ResponseWriter, r *http.Request) {
+	var user models.UserModels
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil{
+		w.WriteHeader(500)
+		w.Write([]byte("Ошибка на стороне сервера!"))
+		return
+	}
+	user.Login = r.Header.Get("login")
 
+    // запрос в пакет Servise
+	err = services.PutUserFromService(user)
+	if err != nil{
+		switch err.Error(){
+		case "ошибка на стороне сервера":
+			w.WriteHeader(500)
+			w.Write([]byte("Ошибка на стороне сервера!"))
+			return
+		}
+	}
+
+	// Превращение в json данных user-a
+	resp, err := json.Marshal(user)
+	if err != nil{
+		w.WriteHeader(500)
+		w.Write([]byte("Ошибка на стороне сервера!"))
+		return
+	}
+
+	// Успешное выполнения запроса
+	w.WriteHeader(200)
+	w.Write(resp)
+	return
+}
+
+// Обработчик user->profile/DELETE
+// Нет

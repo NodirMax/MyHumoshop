@@ -38,3 +38,8 @@ func CreateNewUserToDB(user models.UserModels) (err error) {
 	_, err = db.DB.Exec("INSERT INTO users(name, login, password) VALUES($1, $2, $3)", user.Name, user.Login, user.Password)
 	return
 }
+
+func UpdateUserToDB(user models.UserModels) (err error) {
+	_, err = db.DB.Exec("UPDATE users SET name=$1, password=$2 WHERE login=$3", user.Name, user.Password, user.Login)
+	return 
+}
