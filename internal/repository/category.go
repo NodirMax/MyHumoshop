@@ -28,7 +28,7 @@ func CategoryGETDB() (category []models.CategoryModels, err error) {
 
 // Получение данных о категории из БД
 func Category_id_GETDB(category_id int64) (product []models.ProductModels, err error) {
-	rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", category_id)
+rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", category_id)
 	if err != nil {
 		return
 	}
