@@ -16,6 +16,9 @@ func GetUserFromService(login string) ( user models.UserModels,err error) {
 }
 
 func PutUserFromService(user models.UserModels) (err error) {
+	if user.Password == ""{
+		return errors.New("поля пароля не может быть пустым")
+	}
 	user.Password = utils.Heshing(user.Password)
 	err = repository.UpdateUserToDB(user)
 	if err != nil{

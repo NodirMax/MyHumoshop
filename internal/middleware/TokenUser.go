@@ -8,9 +8,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-// Задаем секретный ключ, который будет использоваться для подписи токена
-//var JwtKey = []byte("HumoShop")
-
 // Структура для представления информации о пользователе, которая будет включена в токен
 type Claims struct {
 	jwt.StandardClaims

@@ -133,6 +133,9 @@ func UserPUT(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(500)
 			w.Write([]byte("Ошибка на стороне сервера!"))
 			return
+		case "поля пароля не может быть пустым":
+			w.WriteHeader(400)
+			w.Write([]byte("поля пароля не может быть пустым"))
 		}
 	}
 

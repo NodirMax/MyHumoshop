@@ -22,9 +22,16 @@ func StartRouter() {
 	router2.HandleFunc("/", handlers.UserGET).Methods("GET")
 	router2.HandleFunc("/", handlers.UserPUT).Methods("PUT")
 
+	// роут относящийся к категориям
 	router3 := router.PathPrefix("/category").Subrouter()
+	// public роуты
 	router3.HandleFunc("", handlers.CategoryGET).Methods("GET")
 	router3.HandleFunc("/{category_name}", handlers.CategoryGET_id).Methods("GET")
+	// private роуты
+	router3.Use(middleware.ProtectedEndpoint)
+	router3.HandleFunc("", handlers.CategoryPOST_id).Methods("POST")
+	router3.HandleFunc("", handlers.CategoryPUT_id).Methods("PUT")
+	router3.HandleFunc("", handlers.CategoryDELETE_id).Methods("DELETE")
 
 
 	//Запуск сервера на порту 8080

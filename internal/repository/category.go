@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+// Получение данных о категориях из БД
 func CategoryGETDB() (category []models.CategoryModels, err error) {
 	rows, err := db.DB.Query("SELECT * FROM category")
 	if err != nil {
@@ -25,7 +26,8 @@ func CategoryGETDB() (category []models.CategoryModels, err error) {
 	return
 }
 
-func Category_id_GETService(category_id int64) (product []models.ProductModels, err error) {
+// Получение данных о категории из БД
+func Category_id_GETDB(category_id int64) (product []models.ProductModels, err error) {
 	rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", category_id)
 	if err != nil {
 		return
@@ -41,5 +43,23 @@ func Category_id_GETService(category_id int64) (product []models.ProductModels, 
 		}
 		product = append(product, p)
 	}
+	return
+}
+
+// Добавление новой категории в БД
+func Category_id_POSTDB(category models.CategoryModels) (err error) {
+	_, err = db.DB.Exec("INSERT INTO category(category_name) VALUES($1)", category.Category_name)
+	return 
+}
+
+// Обновление данных о категории
+func Category_id_PUTDB(category models.CategoryModels) (err error) {
+	_, err = db.DB.Exec("UPDATE category SET category_name=$1 WHERE category_id=$2", category.Category_name, category.Category_id)
+	return
+}
+
+// Удаление данных о категории
+func Category_id_DELETEDB(category_id int64) (err error) {
+	_, err = db.DB.Exec("DELETE FROM category WHERE category_id=$1", category_id)
 	return
 }
