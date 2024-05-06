@@ -17,7 +17,7 @@ func StartRouter() {
 
 // роут относящийся к пользователю
 	router2 := router.PathPrefix("/profile").Subrouter()
-	// Используем middleware 
+	//private rout, Используем middleware 
 	router2.Use(middleware.ProtectedEndpoint)
 	router2.HandleFunc("/", handlers.UserGET).Methods("GET")
 	router2.HandleFunc("/", handlers.UserPUT).Methods("PUT")
@@ -27,7 +27,7 @@ func StartRouter() {
 	// public роуты
 	router3.HandleFunc("", handlers.CategoryGET).Methods("GET")
 	router3.HandleFunc("/{category_name}", handlers.CategoryGET_id).Methods("GET")
-	// private роуты
+	// private роуты, Используем middleware 
 	router3.Use(middleware.ProtectedEndpoint)
 	router3.HandleFunc("", handlers.CategoryPOST_id).Methods("POST")
 	router3.HandleFunc("", handlers.CategoryPUT_id).Methods("PUT")
@@ -37,11 +37,17 @@ func StartRouter() {
 	router4 := router.PathPrefix("/product").Subrouter()
 	// public роуты
 	router4.HandleFunc("", handlers.ProductGet).Methods("GET")
-	// private роуты
+	// private роуты, Используем middleware 
 	router4.Use(middleware.ProtectedEndpoint)
 	router4.HandleFunc("", handlers.ProductPOST).Methods("POST")
 	router4.HandleFunc("", handlers.ProductPUT).Methods("PUT")
 	router4.HandleFunc("", handlers.ProductDELETE).Methods("Delete")
+
+// роут относящийся к заказам
+	router5 := router.PathPrefix("/order").Subrouter()
+	// private роуты, Используем middleware
+	router5.Use(middleware.ProtectedEndpoint)
+	router5.HandleFunc("", handlers.OrderPOST).Methods("POST")
 
 
 	//Запуск сервера на порту 8080
@@ -49,4 +55,4 @@ func StartRouter() {
 	if err != nil {
 		log.Println("SERVER listing ERROR")
 	}
-}
+}	

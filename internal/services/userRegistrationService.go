@@ -8,13 +8,13 @@ import (
 	"errors"
 )
 
-func RegisterUserService(user models.UserModels) (token string,err error) {
+func RegisterUserService(user models.UserModel) (token string,err error) {
 	// Проверка наличия пользователья в Б.Д.
 	inf, err := repository.GetUserFromDB(user.Login)
 	if err != nil{
 		return "", errors.New("ошибка")
 	}
-	if inf != (models.UserModels{}) {
+	if inf != (models.UserModel{}) {
 		return "", errors.New("пользователь с таким логином уже зарегистрирован")
 	}
 	

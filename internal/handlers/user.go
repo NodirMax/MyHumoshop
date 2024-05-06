@@ -9,7 +9,7 @@ import (
 
 // Обработчик отвечающий за Вход в систему (Авторизация)
 func AuthorizationUzer(w http.ResponseWriter, r *http.Request) {
-	var user models.UserModels
+	var user models.UserModel
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		w.WriteHeader(401)
@@ -51,7 +51,7 @@ func AuthorizationUzer(w http.ResponseWriter, r *http.Request) {
 
 // Обработчик отвечающий за Регистрацию
 func Register(w http.ResponseWriter, r *http.Request) {
-	var user models.UserModels
+	var user models.UserModel
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		w.WriteHeader(401)
@@ -116,7 +116,7 @@ func UserGET(w http.ResponseWriter, r *http.Request) {
 
 //Обработчик user->profile PUT 
 func UserPUT(w http.ResponseWriter, r *http.Request) {
-	var user models.UserModels
+	var user models.UserModel
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil{
 		w.WriteHeader(500)

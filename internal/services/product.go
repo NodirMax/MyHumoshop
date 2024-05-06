@@ -7,16 +7,16 @@ import (
 )
 
 // Получение данных о продукте
-func ProductGetService(p models.ProductModels) (product models.ProductModels, err error) {
+func ProductGetService(p models.ProductModel) (product models.ProductModel, err error) {
 	res, err := repository.ProductGetDB(p.Product_id)
 	if err != nil{
-		return models.ProductModels{}, errors.New("ошибка получение данных о продукте из БД")
+		return models.ProductModel{}, errors.New("ошибка получение данных о продукте из БД")
 	}
 	return res, nil
 }
 
 // Добавление нового продукта
-func ProductPOSTService(product models.ProductModels) (err error) {
+func ProductPOSTService(product models.ProductModel) (err error) {
 	if product.Product_name == ""{
 		return errors.New("поля name не может быть пустым")
 	}
@@ -39,13 +39,13 @@ func ProductPOSTService(product models.ProductModels) (err error) {
 }
 
 // Обновление данных о продукте
-func ProductPUTService(product models.ProductModels) (err error) {
+func ProductPUTService(product models.ProductModel) (err error) {
 	err = repository.ProductPUTDB(product)
 	return
 }
 
 // Удаление данных продукта
-func ProductDELETEService(product models.ProductModels) (err error){
+func ProductDELETEService(product models.ProductModel) (err error){
 	err = repository.ProductDELETEDB(product.Product_id)
 	return
 }

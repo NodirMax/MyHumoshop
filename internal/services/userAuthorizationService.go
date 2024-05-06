@@ -8,7 +8,7 @@ import (
 	"errors"
 )
 
-func AuthorizationUserService(u models.UserModels) (token string,err error){
+func AuthorizationUserService(u models.UserModel) (token string,err error){
 	
 	inf, err := repository.CheckingUser(u.Login)
 	if err != nil{
@@ -16,7 +16,7 @@ func AuthorizationUserService(u models.UserModels) (token string,err error){
 	}
 
 	// проверяем что мы получили данные пользователя с Б.Д.
-	if inf == (models.UserModels{}){
+	if inf == (models.UserModel{}){
 		return "", errors.New("такого пользователя нет")
 	}
 

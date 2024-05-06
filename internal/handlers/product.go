@@ -9,7 +9,7 @@ import (
 
 // Получение данных о продукте
 func ProductGet(w http.ResponseWriter, r *http.Request) {
-	var product models.ProductModels
+	var product models.ProductModel
 	err := json.NewDecoder(r.Body).Decode(&product)
 	if err != nil{
 		w.WriteHeader(400)
@@ -46,7 +46,7 @@ func ProductPOST(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var product models.ProductModels
+	var product models.ProductModel
 	err := json.NewDecoder(r.Body).Decode(&product)
 	if err != nil{
 		w.WriteHeader(400)
@@ -90,7 +90,7 @@ func ProductPUT(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var product models.ProductModels
+	var product models.ProductModel
 	err := json.NewDecoder(r.Body).Decode(&product)
 	if err != nil{
 		w.WriteHeader(400)
@@ -118,7 +118,7 @@ func ProductDELETE(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var product models.ProductModels
+	var product models.ProductModel
 	err := json.NewDecoder(r.Body).Decode(&product)
 	if err != nil{
 		w.WriteHeader(400)

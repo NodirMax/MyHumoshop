@@ -1,6 +1,6 @@
 package models
 
-type ProductModels struct {
+type ProductModel struct {
 	Product_id    int64   `json:"product_id"`
 	Product_name  string  `json:"product_name"`
 	Product_price float64 `json:"product_price"`

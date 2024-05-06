@@ -7,27 +7,27 @@ import (
 )
 
 // Обработка множеств категорий
-func CategoryGETService(c models.CategoryModels) (category []models.CategoryModels, err error) {
+func CategoryGETService(c models.CategoryModel) (category []models.CategoryModel, err error) {
 	res, err := repository.CategoryGETDB()
 	if err != nil{
-		return ([]models.CategoryModels{}), err
+		return ([]models.CategoryModel{}), err
 	}
 	
 	return res, err
 }
 
 // Обработка категории по id
-func Category_id_GETService(category models.CategoryModels) (product []models.ProductModels, err error) {
+func Category_id_GETService(category models.CategoryModel) (product []models.ProductModel, err error) {
 	res, err := repository.Category_id_GETDB(category.Category_id)
 	if err != nil{
-		return ([]models.ProductModels{}), err
+		return ([]models.ProductModel{}), err
 	}
 	// log.Println(res)
 	return res, nil
 }
 
 // Добавление новой категории
-func Category_id_POSTService(category models.CategoryModels) (err error) {
+func Category_id_POSTService(category models.CategoryModel) (err error) {
 	if category.Category_name == ""{
 		return errors.New("поля имени категории не может быть пустым")
 	}
@@ -36,7 +36,7 @@ func Category_id_POSTService(category models.CategoryModels) (err error) {
 }
 
 // Обновление данных о новой категории
-func Category_id_PUTService(category models.CategoryModels) (err error) {
+func Category_id_PUTService(category models.CategoryModel) (err error) {
 	if category.Category_name == ""{
 		return errors.New("поля имени категории не может быть пустым")
 	}
@@ -48,7 +48,7 @@ func Category_id_PUTService(category models.CategoryModels) (err error) {
 }
 
 // Удаление данных о категории
-func Category_id_DELETEService(category models.CategoryModels) (err error) {
+func Category_id_DELETEService(category models.CategoryModel) (err error) {
 	if category.Category_id == 0{
 		return errors.New("ошибка при передачи данных")
 	}

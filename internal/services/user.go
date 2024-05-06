@@ -7,15 +7,15 @@ import (
 	"errors"
 )
 
-func GetUserFromService(login string) ( user models.UserModels,err error) {
+func GetUserFromService(login string) ( user models.UserModel,err error) {
 	user, err = repository.GetUserFromDB(login)
 	if err != nil{
-		return (models.UserModels{}), errors.New("ошибка на стороне сервера")
+		return (models.UserModel{}), errors.New("ошибка на стороне сервера")
 	}
 	return 
 }
 
-func PutUserFromService(user models.UserModels) (err error) {
+func PutUserFromService(user models.UserModel) (err error) {
 	if user.Password == ""{
 		return errors.New("поля пароля не может быть пустым")
 	}

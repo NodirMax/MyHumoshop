@@ -8,7 +8,7 @@ import (
 )
 
 func CategoryGET(w http.ResponseWriter, r *http.Request) {
-	var category models.CategoryModels 
+	var category models.CategoryModel
 	resp, err := services.CategoryGETService(category)
 	if err != nil{
 		w.WriteHeader(500)
@@ -31,7 +31,7 @@ func CategoryGET(w http.ResponseWriter, r *http.Request) {
  
 // Получение данных о категории по id
 func CategoryGET_id(w http.ResponseWriter, r *http.Request) {
-	var category models.CategoryModels
+	var category models.CategoryModel
 
 	err := json.NewDecoder(r.Body).Decode(&category)
 	if err != nil{
@@ -70,7 +70,7 @@ func CategoryPOST_id(w http.ResponseWriter, r *http.Request)  {
 		return
 	}
 
-	var category models.CategoryModels
+	var category models.CategoryModel
 	err := json.NewDecoder(r.Body).Decode(&category)
 	if err != nil{
 		w.WriteHeader(500)
@@ -104,7 +104,7 @@ func CategoryPUT_id(w http.ResponseWriter, r *http.Request)  {
 		return
 	}
 
-	var category models.CategoryModels
+	var category models.CategoryModel
 	err := json.NewDecoder(r.Body).Decode(&category)
 	if err != nil{
 		w.WriteHeader(500)
@@ -138,7 +138,7 @@ func CategoryDELETE_id(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var category models.CategoryModels
+	var category models.CategoryModel
 	err := json.NewDecoder(r.Body).Decode(&category)
 	if err != nil{
 		w.WriteHeader(500)
