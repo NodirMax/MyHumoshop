@@ -115,7 +115,7 @@ func UserGET(w http.ResponseWriter, r *http.Request) {
 }
 
 //Обработчик user->profile PUT 
-func UserPUT(w http.ResponseWriter, r *http.Request) {
+func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	var user models.UserModel
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil{
@@ -126,7 +126,7 @@ func UserPUT(w http.ResponseWriter, r *http.Request) {
 	user.Login = r.Header.Get("login")
 
     // запрос в пакет Servise
-	err = services.PutUserFromService(user)
+	err = services.UserUpdate(user)
 	if err != nil{
 		switch err.Error(){
 		case "ошибка на стороне сервера":

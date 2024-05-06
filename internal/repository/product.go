@@ -19,13 +19,13 @@ func ProductGetDB(Product_id int64) (product models.ProductModel, err error) {
 	return 
 }
 // Добавления нового продукта
-func ProductPOSTDB(product models.ProductModel) (err error) {
+func ProductCreateDB(product models.ProductModel) (err error) {
 	_, err = db.DB.Exec("INSERT INTO product(product_name, product_price, in_stock, category_id) VALUES($1, $2, $3, $4)", product.Product_name, product.Product_price, product.In_stock, product.Category_id)
 	return
 }
 
 // Изменение данных о продукте
-func ProductPUTDB(product models.ProductModel) (err error) {
+func ProductUpdateDB(product models.ProductModel) (err error) {
 	_, err = db.DB.Exec("UPDATE product SET product_name=$1, product_price=$2, in_stock=$3, category_id=$4 WHERE product_id=$5", product.Product_name, product.Product_price, product.In_stock, product.Category_id, product.Product_id)
 	return 
 }

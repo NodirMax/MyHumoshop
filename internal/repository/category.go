@@ -27,7 +27,7 @@ func CategoryGETDB() (category []models.CategoryModel, err error) {
 }
 
 // Получение данных о категории из БД
-func Category_id_GETDB(category_id int64) (product []models.ProductModel, err error) {
+func CategoryGETbyidDB(category_id int64) (product []models.ProductModel, err error) {
 rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", category_id)
 	if err != nil {
 		return
@@ -47,19 +47,19 @@ rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", category_
 }
 
 // Добавление новой категории в БД
-func Category_id_POSTDB(category models.CategoryModel) (err error) {
+func CategoryCreateDB(category models.CategoryModel) (err error) {
 	_, err = db.DB.Exec("INSERT INTO category(category_name) VALUES($1)", category.Category_name)
 	return 
 }
 
 // Обновление данных о категории
-func Category_id_PUTDB(category models.CategoryModel) (err error) {
+func CategoryUpdateDB(category models.CategoryModel) (err error) {
 	_, err = db.DB.Exec("UPDATE category SET category_name=$1 WHERE category_id=$2", category.Category_name, category.Category_id)
 	return
 }
 
 // Удаление данных о категории
-func Category_id_DELETEDB(category_id int64) (err error) {
+func CategoryDELETEDB(category_id int64) (err error) {
 	_, err = db.DB.Exec("DELETE FROM category WHERE category_id=$1", category_id)
 	return
 }

@@ -15,7 +15,7 @@ func GetUserFromService(login string) ( user models.UserModel,err error) {
 	return 
 }
 
-func PutUserFromService(user models.UserModel) (err error) {
+func UserUpdate(user models.UserModel) (err error) {
 	if user.Password == ""{
 		return errors.New("поля пароля не может быть пустым")
 	}

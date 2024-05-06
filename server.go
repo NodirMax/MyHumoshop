@@ -20,18 +20,18 @@ func StartRouter() {
 	//private rout, Используем middleware 
 	router2.Use(middleware.ProtectedEndpoint)
 	router2.HandleFunc("/", handlers.UserGET).Methods("GET")
-	router2.HandleFunc("/", handlers.UserPUT).Methods("PUT")
+	router2.HandleFunc("/", handlers.UserUpdate).Methods("PUT")
 
 // роут относящийся к категориям
 	router3 := router.PathPrefix("/category").Subrouter()
 	// public роуты
 	router3.HandleFunc("", handlers.CategoryGET).Methods("GET")
-	router3.HandleFunc("/{category_name}", handlers.CategoryGET_id).Methods("GET")
+	router3.HandleFunc("/{category_name}", handlers.CategoryGETbyid).Methods("GET")
 	// private роуты, Используем middleware 
 	router3.Use(middleware.ProtectedEndpoint)
-	router3.HandleFunc("", handlers.CategoryPOST_id).Methods("POST")
-	router3.HandleFunc("", handlers.CategoryPUT_id).Methods("PUT")
-	router3.HandleFunc("", handlers.CategoryDELETE_id).Methods("DELETE")
+	router3.HandleFunc("", handlers.CategoryCreate).Methods("POST")
+	router3.HandleFunc("", handlers.CategoryUpdate).Methods("PUT")
+	router3.HandleFunc("", handlers.CategoryDELETE).Methods("DELETE")
 
 // роут относящийся к продукту
 	router4 := router.PathPrefix("/product").Subrouter()
@@ -39,15 +39,15 @@ func StartRouter() {
 	router4.HandleFunc("", handlers.ProductGet).Methods("GET")
 	// private роуты, Используем middleware 
 	router4.Use(middleware.ProtectedEndpoint)
-	router4.HandleFunc("", handlers.ProductPOST).Methods("POST")
-	router4.HandleFunc("", handlers.ProductPUT).Methods("PUT")
+	router4.HandleFunc("", handlers.ProductCreate).Methods("POST")
+	router4.HandleFunc("", handlers.ProductUpdate).Methods("PUT")
 	router4.HandleFunc("", handlers.ProductDELETE).Methods("Delete")
 
 // роут относящийся к заказам
 	router5 := router.PathPrefix("/order").Subrouter()
 	// private роуты, Используем middleware
 	router5.Use(middleware.ProtectedEndpoint)
-	router5.HandleFunc("", handlers.OrderPOST).Methods("POST")
+	router5.HandleFunc("", handlers.OrderCreate).Methods("POST")
 
 
 	//Запуск сервера на порту 8080

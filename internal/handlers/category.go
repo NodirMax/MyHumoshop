@@ -9,7 +9,7 @@ import (
 
 func CategoryGET(w http.ResponseWriter, r *http.Request) {
 	var category models.CategoryModel
-	resp, err := services.CategoryGETService(category)
+	resp, err := services.CategoryGET(category)
 	if err != nil{
 		w.WriteHeader(500)
 		w.Write([]byte("Ошибка на стороне сервера"))
@@ -30,7 +30,7 @@ func CategoryGET(w http.ResponseWriter, r *http.Request) {
 }
  
 // Получение данных о категории по id
-func CategoryGET_id(w http.ResponseWriter, r *http.Request) {
+func CategoryGETbyid(w http.ResponseWriter, r *http.Request) {
 	var category models.CategoryModel
 
 	err := json.NewDecoder(r.Body).Decode(&category)
@@ -41,7 +41,7 @@ func CategoryGET_id(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// Получение данных от пакета service
-	res, err := services.Category_id_GETService(category)
+	res, err := services.CategoryGETbyid(category)
 	if err != nil{
 		w.WriteHeader(500)
 		w.Write([]byte("ошибка на стороне сервера"))
@@ -62,7 +62,7 @@ func CategoryGET_id(w http.ResponseWriter, r *http.Request) {
 }
 
 // Создание новой категории 
-func CategoryPOST_id(w http.ResponseWriter, r *http.Request)  {
+func CategoryCreate(w http.ResponseWriter, r *http.Request)  {
 	// проверяем админ ли пользователь 
 	if r.Header.Get("login") != "admin"{
 		w.WriteHeader(403)
@@ -78,7 +78,7 @@ func CategoryPOST_id(w http.ResponseWriter, r *http.Request)  {
 		return
 	}
 
-	err = services.Category_id_POSTService(category)
+	err = services.CategoryCreate(category)
 	if err != nil{
 		if err.Error() == "поля имени категории не может быть пустым"{
 			w.WriteHeader(400)
@@ -96,7 +96,7 @@ func CategoryPOST_id(w http.ResponseWriter, r *http.Request)  {
 }
 
 // Обновления данных о категорый
-func CategoryPUT_id(w http.ResponseWriter, r *http.Request)  {
+func CategoryUpdate(w http.ResponseWriter, r *http.Request)  {
 	// проверяем админ ли пользователь 
 	if r.Header.Get("login") != "admin"{
 		w.WriteHeader(403)
@@ -112,7 +112,7 @@ func CategoryPUT_id(w http.ResponseWriter, r *http.Request)  {
 		return
 	}
 
-	err = services.Category_id_PUTService(category)
+	err = services.CategoryUpdate(category)
 	if err != nil{
 		if err.Error() == "поля имени категории не может быть пустым"{
 			w.WriteHeader(400)
@@ -130,7 +130,7 @@ func CategoryPUT_id(w http.ResponseWriter, r *http.Request)  {
 }
 
 // Удаление данных о категории
-func CategoryDELETE_id(w http.ResponseWriter, r *http.Request) {
+func CategoryDELETE(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
 	if r.Header.Get("login") != "admin"{
 		w.WriteHeader(403)
@@ -146,7 +146,7 @@ func CategoryDELETE_id(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	err = services.Category_id_DELETEService(category)
+	err = services.CategoryDELETE(category)
 	if err != nil{
 		if err.Error() == "ошибка при передачи данных"{
 			w.WriteHeader(400)

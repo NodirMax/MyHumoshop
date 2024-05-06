@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func OrderPOST(w http.ResponseWriter, r *http.Request) {
+func OrderCreate(w http.ResponseWriter, r *http.Request) {
 	var order []models.OrderModel 
 
 	err := json.NewDecoder(r.Body).Decode(&order)
@@ -18,7 +18,7 @@ func OrderPOST(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	summa, err := services.OrderPOSTService(order)
+	summa, err := services.OrderCreate(order)
 	if err != nil{
 		w.WriteHeader(500)
 		w.Write([]byte("ошибка на стороне сервера"))

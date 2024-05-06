@@ -6,7 +6,7 @@ import (
 	"errors"
 )
 
-func OrderPOSTService(orders []models.OrderModel) (summa float64, err error) {
+func OrderCreate(orders []models.OrderModel) (summa float64, err error) {
 	summa = 0
 	for _, order := range orders{
 		res, err := repository.ProductGetDB(order.Product_id)

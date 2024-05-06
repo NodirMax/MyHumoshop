@@ -16,7 +16,7 @@ func ProductGetService(p models.ProductModel) (product models.ProductModel, err 
 }
 
 // Добавление нового продукта
-func ProductPOSTService(product models.ProductModel) (err error) {
+func ProductCreate(product models.ProductModel) (err error) {
 	if product.Product_name == ""{
 		return errors.New("поля name не может быть пустым")
 	}
@@ -30,7 +30,7 @@ func ProductPOSTService(product models.ProductModel) (err error) {
 	}
 
 
-	err = repository.ProductPOSTDB(product)
+	err = repository.ProductCreateDB(product)
 	if err != nil{
 		return errors.New("ошибка со сторони сервера")
 	}
@@ -39,13 +39,13 @@ func ProductPOSTService(product models.ProductModel) (err error) {
 }
 
 // Обновление данных о продукте
-func ProductPUTService(product models.ProductModel) (err error) {
-	err = repository.ProductPUTDB(product)
+func ProductUpdate(product models.ProductModel) (err error) {
+	err = repository.ProductUpdateDB(product)
 	return
 }
 
 // Удаление данных продукта
-func ProductDELETEService(product models.ProductModel) (err error){
+func ProductDELETE(product models.ProductModel) (err error){
 	err = repository.ProductDELETEDB(product.Product_id)
 	return
 }

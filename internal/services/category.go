@@ -7,7 +7,7 @@ import (
 )
 
 // Обработка множеств категорий
-func CategoryGETService(c models.CategoryModel) (category []models.CategoryModel, err error) {
+func CategoryGET(c models.CategoryModel) (category []models.CategoryModel, err error) {
 	res, err := repository.CategoryGETDB()
 	if err != nil{
 		return ([]models.CategoryModel{}), err
@@ -17,8 +17,8 @@ func CategoryGETService(c models.CategoryModel) (category []models.CategoryModel
 }
 
 // Обработка категории по id
-func Category_id_GETService(category models.CategoryModel) (product []models.ProductModel, err error) {
-	res, err := repository.Category_id_GETDB(category.Category_id)
+func CategoryGETbyid(category models.CategoryModel) (product []models.ProductModel, err error) {
+	res, err := repository.CategoryGETbyidDB(category.Category_id)
 	if err != nil{
 		return ([]models.ProductModel{}), err
 	}
@@ -27,20 +27,20 @@ func Category_id_GETService(category models.CategoryModel) (product []models.Pro
 }
 
 // Добавление новой категории
-func Category_id_POSTService(category models.CategoryModel) (err error) {
+func CategoryCreate(category models.CategoryModel) (err error) {
 	if category.Category_name == ""{
 		return errors.New("поля имени категории не может быть пустым")
 	}
-	err = repository.Category_id_POSTDB(category)
+	err = repository.CategoryCreateDB(category)
 	return
 }
 
 // Обновление данных о новой категории
-func Category_id_PUTService(category models.CategoryModel) (err error) {
+func CategoryUpdate(category models.CategoryModel) (err error) {
 	if category.Category_name == ""{
 		return errors.New("поля имени категории не может быть пустым")
 	}
-	err = repository.Category_id_PUTDB(category)
+	err = repository.CategoryUpdateDB(category)
 	if err != nil{
 		return errors.New("ошибка обновления данных")
 	}
@@ -48,11 +48,11 @@ func Category_id_PUTService(category models.CategoryModel) (err error) {
 }
 
 // Удаление данных о категории
-func Category_id_DELETEService(category models.CategoryModel) (err error) {
+func CategoryDELETE(category models.CategoryModel) (err error) {
 	if category.Category_id == 0{
 		return errors.New("ошибка при передачи данных")
 	}
-	err = repository.Category_id_DELETEDB(category.Category_id)
+	err = repository.CategoryDELETEDB(category.Category_id)
 	if err != nil{
 		return errors.New("ошибка при удалении категории")
 	}

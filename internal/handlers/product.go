@@ -38,7 +38,7 @@ func ProductGet(w http.ResponseWriter, r *http.Request) {
 
 
 // Добавление нового продукта
-func ProductPOST(w http.ResponseWriter, r *http.Request) {
+func ProductCreate(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
 	if r.Header.Get("login") != "admin"{
 		w.WriteHeader(403)
@@ -54,7 +54,7 @@ func ProductPOST(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = services.ProductPOSTService(product)
+	err = services.ProductCreate(product)
 	if err != nil{
 		switch err.Error(){
 		case "поля name не может быть пустым":
@@ -82,7 +82,7 @@ func ProductPOST(w http.ResponseWriter, r *http.Request) {
 }
 
 // Обновление данных о продукте
-func ProductPUT(w http.ResponseWriter, r *http.Request) {
+func ProductUpdate(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
 	if r.Header.Get("login") != "admin"{
 		w.WriteHeader(403)
@@ -98,7 +98,7 @@ func ProductPUT(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = services.ProductPUTService(product)
+	err = services.ProductUpdate(product)
 	if err != nil{
 		w.WriteHeader(500)
 		w.Write([]byte("ошибка на стороне сервера"))
@@ -126,7 +126,7 @@ func ProductDELETE(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = services.ProductDELETEService(product)
+	err = services.ProductDELETE(product)
 	if err != nil{
 		w.WriteHeader(500)
 		w.Write([]byte("Ошибка на стороне сервера"))
