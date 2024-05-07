@@ -9,7 +9,7 @@ import (
 )
 
 func OrderCreate(w http.ResponseWriter, r *http.Request) {
-	var order []models.OrderModel 
+	var order models.OrderModel 
 
 	err := json.NewDecoder(r.Body).Decode(&order)
 	if err != nil{
