@@ -10,7 +10,7 @@ import (
 
 func AuthorizationUserService(u models.UserModel) (token string,err error){
 	
-	inf, err := repository.CheckingUser(u.Login)
+	inf, err := repository.GetUserFromDB(u.Login)
 	if err != nil{
 		return "", errors.New("ошибка на стороне сервера")
 	}

@@ -9,8 +9,7 @@ import (
 // Получение данных про пользователя из Б.Д.
 func GetUserFromDB(login string) (user models.UserModel, err error) {
 	row := db.DB.QueryRow(`SELECT * FROM users WHERE login=$1`, login)
-
-	err = row.Scan(&user.Id, &user.Name, &user.Login, &user.Password)
+	err = row.Scan(&user.Id, &user.Name, &user.Login, &user.Password, &user.Role)
 	if err != nil {
 		if err == sql.ErrNoRows {
             return user, nil
@@ -20,18 +19,6 @@ func GetUserFromDB(login string) (user models.UserModel, err error) {
 	return user, nil
 }
 
-// Проверка наличия пользователя в Б.Д.
-func CheckingUser(login string) (user models.UserModel, err error){
-	row := db.DB.QueryRow(`SELECT * FROM users WHERE login=$1`, login)
-	err = row.Scan(&user.Id, &user.Name, &user.Login, &user.Password)
-	if err != nil {
-		if err == sql.ErrNoRows {
-            return user, nil
-        }
-		return 
-	}
-	return user, nil
-}
 
 // Создание нового пользователя в Базу данных
 func CreateNewUserToDB(user models.UserModel) (err error) {

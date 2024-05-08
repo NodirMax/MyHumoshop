@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"HumoSHOP/internal/middleware"
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/services"
 	"encoding/json"
@@ -40,7 +41,8 @@ func ProductGet(w http.ResponseWriter, r *http.Request) {
 // Добавление нового продукта
 func ProductCreate(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
-	if r.Header.Get("login") != "admin"{
+	login := r.Header.Get("login")
+	if middleware.AdminCheack(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
@@ -84,7 +86,8 @@ func ProductCreate(w http.ResponseWriter, r *http.Request) {
 // Обновление данных о продукте
 func ProductUpdate(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
-	if r.Header.Get("login") != "admin"{
+	login := r.Header.Get("login")
+	if middleware.AdminCheack(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
@@ -112,7 +115,8 @@ func ProductUpdate(w http.ResponseWriter, r *http.Request) {
 // Удаление данных о продукте
 func ProductDELETE(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
-	if r.Header.Get("login") != "admin"{
+	login := r.Header.Get("login")
+	if middleware.AdminCheack(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return

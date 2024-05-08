@@ -20,7 +20,7 @@ const (
 )
 
 func GenerateToken(login string) (string, error) {
-	user, err := repository.CheckingUser(login)
+	user, err := repository.GetUserFromDB(login)
 	if err != nil {
 		return "", err
 	}

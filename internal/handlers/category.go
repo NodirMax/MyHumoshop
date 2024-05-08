@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"HumoSHOP/internal/middleware"
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/services"
 	"encoding/json"
@@ -64,7 +65,8 @@ func CategoryGETbyid(w http.ResponseWriter, r *http.Request) {
 // Создание новой категории 
 func CategoryCreate(w http.ResponseWriter, r *http.Request)  {
 	// проверяем админ ли пользователь 
-	if r.Header.Get("login") != "admin"{
+	login := r.Header.Get("login")
+	if middleware.AdminCheack(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
@@ -98,7 +100,8 @@ func CategoryCreate(w http.ResponseWriter, r *http.Request)  {
 // Обновления данных о категорый
 func CategoryUpdate(w http.ResponseWriter, r *http.Request)  {
 	// проверяем админ ли пользователь 
-	if r.Header.Get("login") != "admin"{
+	login := r.Header.Get("login")
+	if middleware.AdminCheack(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
@@ -132,7 +135,8 @@ func CategoryUpdate(w http.ResponseWriter, r *http.Request)  {
 // Удаление данных о категории
 func CategoryDELETE(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
-	if r.Header.Get("login") != "admin"{
+	login := r.Header.Get("login")
+	if middleware.AdminCheack(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
