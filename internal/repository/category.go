@@ -16,7 +16,7 @@ func CategoryGETDB() (category []models.CategoryModel, err error) {
 
 	var c models.CategoryModel
 	for rows.Next() {
-		err := rows.Scan(&c.Category_id, &c.Category_name)
+		err := rows.Scan(&c.CategoryID, &c.CategoryName)
 		if err != nil {
 			log.Println("Ошибка row")
 			continue
@@ -27,8 +27,8 @@ func CategoryGETDB() (category []models.CategoryModel, err error) {
 }
 
 // Получение данных о категории из БД
-func CategoryGETbyidDB(category_id int64) (product []models.ProductModel, err error) {
-rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", category_id)
+func CategoryGETbyidDB(categoryID int64) (product []models.ProductModel, err error) {
+rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", categoryID)
 	if err != nil {
 		return
 	}
@@ -36,7 +36,7 @@ rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", category_
 
 	var p models.ProductModel
 	for rows.Next() {
-		err := rows.Scan(&p.Product_id, &p.Product_name, &p.Product_price, &p.In_stock, &p.Category_id)
+		err := rows.Scan(&p.ProductID, &p.ProductName, &p.ProductPrice, &p.InStock, &p.CategoryID)
 		if err != nil {
 			log.Println("Ошибка row")
 			continue
@@ -48,18 +48,18 @@ rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", category_
 
 // Добавление новой категории в БД
 func CategoryCreateDB(category models.CategoryModel) (err error) {
-	_, err = db.DB.Exec("INSERT INTO category(category_name) VALUES($1)", category.Category_name)
+	_, err = db.DB.Exec("INSERT INTO category(category_name) VALUES($1)", category.CategoryName)
 	return 
 }
 
 // Обновление данных о категории
 func CategoryUpdateDB(category models.CategoryModel) (err error) {
-	_, err = db.DB.Exec("UPDATE category SET category_name=$1 WHERE category_id=$2", category.Category_name, category.Category_id)
+	_, err = db.DB.Exec("UPDATE category SET category_name=$1 WHERE category_id=$2", category.CategoryName, category.CategoryID)
 	return
 }
 
 // Удаление данных о категории
-func CategoryDELETEDB(category_id int64) (err error) {
-	_, err = db.DB.Exec("DELETE FROM category WHERE category_id=$1", category_id)
+func CategoryDELETEDB(categoryID int64) (err error) {
+	_, err = db.DB.Exec("DELETE FROM category WHERE category_id=$1", categoryID)
 	return
 }

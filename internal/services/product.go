@@ -8,7 +8,7 @@ import (
 
 // Получение данных о продукте
 func ProductGetService(p models.ProductModel) (product models.ProductModel, err error) {
-	res, err := repository.ProductGetDB(p.Product_id)
+	res, err := repository.ProductGetDB(p.ProductID)
 	if err != nil{
 		return models.ProductModel{}, errors.New("ошибка получение данных о продукте из БД")
 	}
@@ -17,15 +17,15 @@ func ProductGetService(p models.ProductModel) (product models.ProductModel, err 
 
 // Добавление нового продукта
 func ProductCreate(product models.ProductModel) (err error) {
-	if product.Product_name == ""{
+	if product.ProductName == ""{
 		return errors.New("поля name не может быть пустым")
 	}
 
-	if product.Product_price == 0{
+	if product.ProductPrice == 0{
 		return errors.New("поля price не может быть пустым")
 	}
 
-	if product.Category_id == 0{
+	if product.CategoryID == 0{
 		return errors.New("поля Category_id не может быть пустым")
 	}
 
@@ -46,6 +46,6 @@ func ProductUpdate(product models.ProductModel) (err error) {
 
 // Удаление данных продукта
 func ProductDELETE(product models.ProductModel) (err error){
-	err = repository.ProductDELETEDB(product.Product_id)
+	err = repository.ProductDELETEDB(product.ProductID)
 	return
 }

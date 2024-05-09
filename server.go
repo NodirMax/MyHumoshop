@@ -48,6 +48,7 @@ func StartRouter() {
 	// private роуты, Используем middleware
 	router5.Use(middleware.ProtectedEndpoint)
 	router5.HandleFunc("", handlers.OrderCreate).Methods("POST")
+	router5.HandleFunc("", handlers.OrderGet).Methods("GET")
 
 
 	//Запуск сервера на порту 8080

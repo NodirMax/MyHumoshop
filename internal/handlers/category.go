@@ -66,7 +66,7 @@ func CategoryGETbyid(w http.ResponseWriter, r *http.Request) {
 func CategoryCreate(w http.ResponseWriter, r *http.Request)  {
 	// проверяем админ ли пользователь 
 	login := r.Header.Get("login")
-	if middleware.AdminCheack(login) != nil{
+	if middleware.AdminCheck(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
@@ -101,7 +101,7 @@ func CategoryCreate(w http.ResponseWriter, r *http.Request)  {
 func CategoryUpdate(w http.ResponseWriter, r *http.Request)  {
 	// проверяем админ ли пользователь 
 	login := r.Header.Get("login")
-	if middleware.AdminCheack(login) != nil{
+	if middleware.AdminCheck(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
@@ -136,7 +136,7 @@ func CategoryUpdate(w http.ResponseWriter, r *http.Request)  {
 func CategoryDELETE(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
 	login := r.Header.Get("login")
-	if middleware.AdminCheack(login) != nil{
+	if middleware.AdminCheck(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return

@@ -5,7 +5,7 @@ import (
 	"errors"
 )
 
-func AdminCheack(login string) (err error) {
+func AdminCheck(login string) (err error) {
 	user, err := repository.GetUserFromDB(login)
 	if err != nil{
 		return errors.New("ошибка на стороне")

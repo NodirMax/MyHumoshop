@@ -10,11 +10,11 @@ func OrderCreate(order models.OrderModel) (err error) {
 	summa := 0.0
 	
 	for _, product := range order.Products {
-		price, err := repository.ProductGetDB(product.Product_id)
+		price, err := repository.ProductGetDB(product.ProductID)
 		if err != nil{
 			return errors.New("продукт не найден")
 		}
-		summa += float64(product.Product_count) * price.Product_price
+		summa += float64(product.ProductCount) * price.ProductPrice
 	}
 
 	lastid, err := repository.OrderCreateDB(order, summa)
@@ -24,10 +24,15 @@ func OrderCreate(order models.OrderModel) (err error) {
 
 	// добавление продуктов в таблицу 2
 	for _, product := range order.Products{
-		err = repository.OrderProductCreateDB(lastid, product.Product_id, product.Product_count)
+		err = repository.OrderProductCreateDB(lastid, product.ProductID, product.ProductCount)
 		if err != nil{
 			return err
 		}
 	}
 	return nil
+}
+
+func OrderGet(userID int64) (order []models.OrderModel, err error) {
+	order, err = repository.OrderGetDB(userID)
+	return
 }

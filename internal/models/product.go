@@ -1,9 +1,9 @@
 package models
 
 type ProductModel struct {
-	Product_id    int64   `json:"product_id"`
-	Product_name  string  `json:"product_name"`
-	Product_price float64 `json:"product_price"`
-	In_stock      bool    `json:"in_stock"`
-	Category_id   int64   `json:"category_id"`
+	ProductID    int64   `json:"product_id"`
+	ProductName  string  `json:"product_name"`
+	ProductPrice float64 `json:"product_price"`
+	InStock      bool    `json:"in_stock"`
+	CategoryID   int64   `json:"category_id"`
 }

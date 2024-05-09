@@ -42,7 +42,7 @@ func ProductGet(w http.ResponseWriter, r *http.Request) {
 func ProductCreate(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
 	login := r.Header.Get("login")
-	if middleware.AdminCheack(login) != nil{
+	if middleware.AdminCheck(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
@@ -87,7 +87,7 @@ func ProductCreate(w http.ResponseWriter, r *http.Request) {
 func ProductUpdate(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
 	login := r.Header.Get("login")
-	if middleware.AdminCheack(login) != nil{
+	if middleware.AdminCheck(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return
@@ -116,7 +116,7 @@ func ProductUpdate(w http.ResponseWriter, r *http.Request) {
 func ProductDELETE(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 
 	login := r.Header.Get("login")
-	if middleware.AdminCheack(login) != nil{
+	if middleware.AdminCheck(login) != nil{
 		w.WriteHeader(403)
 		w.Write([]byte("вы не имеете достаточно прав"))
 		return

@@ -18,7 +18,7 @@ func CategoryGET(c models.CategoryModel) (category []models.CategoryModel, err e
 
 // Обработка категории по id
 func CategoryGETbyid(category models.CategoryModel) (product []models.ProductModel, err error) {
-	res, err := repository.CategoryGETbyidDB(category.Category_id)
+	res, err := repository.CategoryGETbyidDB(category.CategoryID)
 	if err != nil{
 		return ([]models.ProductModel{}), err
 	}
@@ -28,7 +28,7 @@ func CategoryGETbyid(category models.CategoryModel) (product []models.ProductMod
 
 // Добавление новой категории
 func CategoryCreate(category models.CategoryModel) (err error) {
-	if category.Category_name == ""{
+	if category.CategoryName == ""{
 		return errors.New("поля имени категории не может быть пустым")
 	}
 	err = repository.CategoryCreateDB(category)
@@ -37,7 +37,7 @@ func CategoryCreate(category models.CategoryModel) (err error) {
 
 // Обновление данных о новой категории
 func CategoryUpdate(category models.CategoryModel) (err error) {
-	if category.Category_name == ""{
+	if category.CategoryName == ""{
 		return errors.New("поля имени категории не может быть пустым")
 	}
 	err = repository.CategoryUpdateDB(category)
@@ -49,10 +49,10 @@ func CategoryUpdate(category models.CategoryModel) (err error) {
 
 // Удаление данных о категории
 func CategoryDELETE(category models.CategoryModel) (err error) {
-	if category.Category_id == 0{
+	if category.CategoryID == 0{
 		return errors.New("ошибка при передачи данных")
 	}
-	err = repository.CategoryDELETEDB(category.Category_id)
+	err = repository.CategoryDELETEDB(category.CategoryID)
 	if err != nil{
 		return errors.New("ошибка при удалении категории")
 	}
