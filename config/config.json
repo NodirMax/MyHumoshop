@@ -1,9 +1,0 @@
-{
-  "server_port": "8080",
-  "pg_settings": {
-    "user": "postgres",
-    "dbname": "humoshop",
-    "password": 1010
-  },
-  "jwt_secret": "HumoShop"
-}

@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"HumoSHOP/internal/middleware"
+	"HumoSHOP/api/middleware"
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/services"
 	"encoding/json"

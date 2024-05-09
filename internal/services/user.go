@@ -1,7 +1,6 @@
 package services
 
 import (
-	"HumoSHOP/internal/middleware"
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/repository"
 	"HumoSHOP/pkg/utils"
@@ -47,7 +46,7 @@ func AuthorizationUserService(u models.UserModel) (token string,err error){
 	}
 
 	// Создаем новый токен
-	token, err = middleware.GenerateToken(u.Login)
+	token, err = utils.GenerateToken(u.Login)
 	if err != nil{
 		return "", errors.New("ошибка при создании токена")
 	}
@@ -75,7 +74,7 @@ func RegisterUserService(user models.UserModel) (token string,err error) {
 	}
 	
 	// Добавление нового токена
-	token, err = middleware.GenerateToken(user.Login)
+	token, err = utils.GenerateToken(user.Login)
 	if err != nil{
 		return "", errors.New("ошибка при создании токена")
 	}

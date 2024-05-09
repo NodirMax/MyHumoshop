@@ -1,8 +1,8 @@
-package myproject
+package api
 
 import (
-	"HumoSHOP/internal/handlers"
-	"HumoSHOP/internal/middleware"
+	"HumoSHOP/api/handlers"
+	"HumoSHOP/api/middleware"
 	"log"
 	"net/http"
 

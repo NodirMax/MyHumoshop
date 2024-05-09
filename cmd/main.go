@@ -1,7 +1,7 @@
 package main
 
 import (
-	myproject "HumoSHOP"
+	"HumoSHOP/api"
 	"HumoSHOP/config"
 	"HumoSHOP/pkg/db"
 	"log"
@@ -15,5 +15,5 @@ func main() {
 	
 	db.DatabaseConnect()// Соединение с базой данных
 	defer db.DatabaseClose()// Закрытие соединение с базой данных
-	myproject.StartRouter()
+	api.StartRouter()
 }

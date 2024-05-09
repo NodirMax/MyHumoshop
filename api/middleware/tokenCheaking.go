@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"HumoSHOP/pkg/utils"
 	"net/http"
 )
 func ProtectedEndpoint(h http.Handler) http.Handler {
@@ -8,7 +9,7 @@ func ProtectedEndpoint(h http.Handler) http.Handler {
 	// Получаем токен из заголовка Authorization
 	tokenString := r.Header.Get("Authorization")
 	
-	login, err := ParseToken(tokenString)
+	login, err := utils.ParseToken(tokenString)
 	if err != nil{
 		w.WriteHeader(401)
 		w.Write([]byte("Пользователь не обнаружен!"))
