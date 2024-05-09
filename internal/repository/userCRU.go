@@ -16,7 +16,7 @@ func GetUserFromDB(login string) (user models.UserModel, err error) {
         }
 		return 
 	}
-	return user, nil
+	return 
 }
 
 

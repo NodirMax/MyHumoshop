@@ -6,8 +6,7 @@ import (
 )
 
 func main() {
-	db.DatabaseConnect() // Соединение с базой данных
-	defer db.DatabaseClose() // Закрытие соединение с базой данных
-
+	 db.DatabaseConnect()// Соединение с базой данных
+	 defer db.DatabaseClose()// Закрытие соединение с базой данных
 	myproject.StartRouter()
 }

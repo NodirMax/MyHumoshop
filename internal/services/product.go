@@ -7,12 +7,12 @@ import (
 )
 
 // Получение данных о продукте
-func ProductGetService(p models.ProductModel) (product models.ProductModel, err error) {
-	res, err := repository.ProductGetDB(p.ProductID)
+func ProductGetService(p models.ProductModel) (res models.ProductModel, err error) {
+	res, err = repository.ProductGetDB(p.ProductID)
 	if err != nil{
 		return models.ProductModel{}, errors.New("ошибка получение данных о продукте из БД")
 	}
-	return res, nil
+	return 
 }
 
 // Добавление нового продукта

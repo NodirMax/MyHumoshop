@@ -7,23 +7,23 @@ import (
 )
 
 // Обработка множеств категорий
-func CategoryGET(c models.CategoryModel) (category []models.CategoryModel, err error) {
-	res, err := repository.CategoryGETDB()
+func CategoryGET(c models.CategoryModel) (res []models.CategoryModel, err error) {
+	res, err = repository.CategoryGETDB()
 	if err != nil{
 		return ([]models.CategoryModel{}), err
 	}
 	
-	return res, err
+	return 
 }
 
 // Обработка категории по id
-func CategoryGETbyid(category models.CategoryModel) (product []models.ProductModel, err error) {
-	res, err := repository.CategoryGETbyidDB(category.CategoryID)
+func CategoryGETbyid(category models.CategoryModel) (res []models.ProductModel, err error) {
+	res, err = repository.CategoryGETbyidDB(category.CategoryID)
 	if err != nil{
 		return ([]models.ProductModel{}), err
 	}
-	// log.Println(res)
-	return res, nil
+
+	return 
 }
 
 // Добавление новой категории

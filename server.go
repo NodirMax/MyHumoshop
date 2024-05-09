@@ -16,39 +16,39 @@ func StartRouter() {
 	router.HandleFunc("/login", handlers.AuthorizationUzer).Methods("POST")
 
 // роут относящийся к пользователю
-	router2 := router.PathPrefix("/profile").Subrouter()
+	routerProfile := router.PathPrefix("/profile").Subrouter()
 	//private rout, Используем middleware 
-	router2.Use(middleware.ProtectedEndpoint)
-	router2.HandleFunc("/", handlers.UserGET).Methods("GET")
-	router2.HandleFunc("/", handlers.UserUpdate).Methods("PUT")
+	routerProfile.Use(middleware.ProtectedEndpoint)
+	routerProfile.HandleFunc("/", handlers.UserGET).Methods("GET")
+	routerProfile.HandleFunc("/", handlers.UserUpdate).Methods("PUT")
 
 // роут относящийся к категориям
-	router3 := router.PathPrefix("/category").Subrouter()
+	routerCategory := router.PathPrefix("/category").Subrouter()
 	// public роуты
 	router.HandleFunc("/category", handlers.CategoryGET).Methods("GET")
 	router.HandleFunc("/category/{category_name}", handlers.CategoryGETbyid).Methods("GET")
 	// private роуты, Используем middleware 
-	router3.Use(middleware.ProtectedEndpoint)
-	router3.HandleFunc("", handlers.CategoryCreate).Methods("POST")
-	router3.HandleFunc("", handlers.CategoryUpdate).Methods("PUT")
-	router3.HandleFunc("", handlers.CategoryDELETE).Methods("DELETE")
+	routerCategory.Use(middleware.ProtectedEndpoint)
+	routerCategory.HandleFunc("/", handlers.CategoryCreate).Methods("POST")
+	routerCategory.HandleFunc("/", handlers.CategoryUpdate).Methods("PUT")
+	routerCategory.HandleFunc("/", handlers.CategoryDELETE).Methods("DELETE")
 
 // роут относящийся к продукту
-	router4 := router.PathPrefix("/product").Subrouter()
+	routerProduct := router.PathPrefix("/product").Subrouter()
 	// public роуты
 	router.HandleFunc("/product", handlers.ProductGet).Methods("GET")
 	// private роуты, Используем middleware 
-	router4.Use(middleware.ProtectedEndpoint)
-	router4.HandleFunc("", handlers.ProductCreate).Methods("POST")
-	router4.HandleFunc("", handlers.ProductUpdate).Methods("PUT")
-	router4.HandleFunc("", handlers.ProductDELETE).Methods("Delete")
+	routerProduct.Use(middleware.ProtectedEndpoint)
+	routerProduct.HandleFunc("/", handlers.ProductCreate).Methods("POST")
+	routerProduct.HandleFunc("/", handlers.ProductUpdate).Methods("PUT")
+	routerProduct.HandleFunc("/", handlers.ProductDELETE).Methods("Delete")
 
 // роут относящийся к заказам
-	router5 := router.PathPrefix("/order").Subrouter()
+	routerOrder := router.PathPrefix("/order").Subrouter()
 	// private роуты, Используем middleware
-	router5.Use(middleware.ProtectedEndpoint)
-	router5.HandleFunc("", handlers.OrderCreate).Methods("POST")
-	router5.HandleFunc("", handlers.OrderGet).Methods("GET")
+	routerOrder.Use(middleware.ProtectedEndpoint)
+	routerOrder.HandleFunc("/", handlers.OrderCreate).Methods("POST")
+	routerOrder.HandleFunc("/", handlers.OrderGet).Methods("GET")
 
 
 	//Запуск сервера на порту 8080

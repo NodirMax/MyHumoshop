@@ -23,11 +23,14 @@ func DatabaseConnect() {
 	conStr := fmt.Sprintf("user=%s password=%d dbname=%s sslmode=disable", d.DB_user, d.DB_password, d.DB_name)
 	DB, err = sql.Open("postgres", conStr)
 	if err != nil {
-		log.Fatal("database connection ERROR")
+		log.Fatalln("[INFO] Can't connect to Database!", err)
 	}
 }
 
 // Закрыть Базу Данных
 func DatabaseClose() {
-	DB.Close()
+	err := DB.Close()
+	if err != nil {
+		log.Println("[ERROR] Can't close Database connection!", err)
+	}
 }

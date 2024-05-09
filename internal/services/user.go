@@ -36,12 +36,10 @@ func AuthorizationUserService(u models.UserModel) (token string,err error){
 	if err != nil{
 		return "", errors.New("ошибка на стороне сервера")
 	}
-
 	// проверяем что мы получили данные пользователя с Б.Д.
 	if inf == (models.UserModel{}){
 		return "", errors.New("такого пользователя нет")
 	}
-
 	// Проверим пароль пользователя, после расхеширования
 	z :=  utils.HeshChecking(inf.Password, u.Password)
 	if z != nil{

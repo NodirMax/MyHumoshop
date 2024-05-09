@@ -17,7 +17,6 @@ func ProtectedEndpoint(h http.Handler) http.Handler {
 
 
 	r.Header.Set("login", login)
-	w.WriteHeader(http.StatusOK)
 	h.ServeHTTP(w, r)
 	})
 }
