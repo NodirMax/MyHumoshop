@@ -1,0 +1,4 @@
+# Игнорирование папки .vscode
+.vscode/
+
+config/config.json

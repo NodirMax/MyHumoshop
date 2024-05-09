@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"HumoSHOP/config"
 	"HumoSHOP/internal/repository"
 	"errors"
 	"time"
@@ -15,11 +16,13 @@ type Claims struct {
 }
 
 const (
-	signingKey = "HumoShop"
 	tokenTTL   = 12 * time.Hour
 )
 
 func GenerateToken(login string) (string, error) {
+	// берем секретный ключ из конфига
+	signingKey := config.Settings.JWTSecret
+	
 	user, err := repository.GetUserFromDB(login)
 	if err != nil {
 		return "", err
@@ -38,6 +41,9 @@ func GenerateToken(login string) (string, error) {
 
 
 func ParseToken(accessToken string) (string, error) {
+	// берем секретный ключ из конфига
+	signingKey := config.Settings.JWTSecret
+
 	token, err := jwt.ParseWithClaims(accessToken, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")

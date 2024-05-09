@@ -15,7 +15,7 @@ type configModel struct {
 type postgresSettings struct {
 	User     string `json:"user"`
 	DBName   string `json:"dbname"`
-	Password string `json:"password"`
+	Password int64 `json:"password"`
 }
 
 var Settings configModel

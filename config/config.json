@@ -5,5 +5,5 @@
     "dbname": "humoshop",
     "password": 1010
   },
-  "jwt_secret": "secretword"
+  "jwt_secret": "HumoShop"
 }
