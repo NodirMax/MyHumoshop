@@ -41,13 +41,21 @@ func OrderGet(w http.ResponseWriter, r *http.Request)  {
 		w.Write([]byte("Ошибка при декодирование"))
 		return
 	}
-	_, err = services.OrderGet(order.UserID)
+	
+	result, err := services.OrderGet(order.UserID)
 	if err != nil{
 		w.WriteHeader(500)
 		w.Write([]byte("Ошибка со стороны сервера"))
 		return
 	}
+
+	res, err := json.Marshal(result)
+	if err != nil{
+		w.WriteHeader(400)
+		w.Write([]byte("Ошибка со стороны сервера"))
+	}
+
 	w.WriteHeader(200)
-	// w.Write(order)
+	w.Write(res)
 	return
 }

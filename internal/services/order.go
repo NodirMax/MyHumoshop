@@ -32,7 +32,7 @@ func OrderCreate(order models.OrderModel) (err error) {
 	return nil
 }
 
-func OrderGet(userID int64) (order []models.OrderModel, err error) {
+func OrderGet(userID int64) (order []repository.OrderWithProducts, err error) {
 	order, err = repository.OrderGetDB(userID)
 	return
 }
