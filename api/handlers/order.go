@@ -1,10 +1,10 @@
 package handlers
 
 import (
+	"HumoSHOP/api/response"
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/services"
 	"encoding/json"
-	"log"
 	"net/http"
 )
 
@@ -14,21 +14,25 @@ func OrderCreate(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&order)
 	if err != nil{
-		w.WriteHeader(500)
-		w.Write([]byte("Ошибка при декодирование"))
-		return
+		response.ErrorJsonMessage(w, response.Resp{
+			Message: "Ошибка при полученнии данных",
+			StatusCode: 400,
+		})
 	}
 
 	err = services.OrderCreate(order)
 	if err != nil{
-		log.Println(err)
-		w.WriteHeader(500)
-		w.Write([]byte("ошибка на стороне сервера"))
+		response.ErrorJsonMessage(w, response.Resp{
+			Message: "Ошибка на стороне сервера",
+			StatusCode: 500,
+		})
 		return
 	}
 
-	w.WriteHeader(200)
-	w.Write([]byte("Данные успешно добавлени в БД"))
+	response.ErrorJsonMessage(w, response.Resp{
+		Message: "Данные успешно добавлени в БД",
+		StatusCode: 200,
+	})
 	return
 }
 
@@ -37,25 +41,26 @@ func OrderGet(w http.ResponseWriter, r *http.Request)  {
 	var order models.OrderModel
 	err := json.NewDecoder(r.Body).Decode(&order)
 	if err != nil{
-		w.WriteHeader(500)
-		w.Write([]byte("Ошибка при декодирование"))
-		return
+		response.ErrorJsonMessage(w, response.Resp{
+			Message: "Ошибка при полученнии данных",
+			StatusCode: 400,
+		})
 	}
 	
 	result, err := services.OrderGet(order.UserID)
 	if err != nil{
-		w.WriteHeader(500)
-		w.Write([]byte("Ошибка со стороны сервера"))
-		return
+		response.ErrorJsonMessage(w, response.Resp{
+			Message: "Ошибка на стороне сервера",
+			StatusCode: 500,
+		})
 	}
 
-	res, err := json.Marshal(result)
-	if err != nil{
-		w.WriteHeader(400)
-		w.Write([]byte("Ошибка со стороны сервера"))
-	}
 
-	w.WriteHeader(200)
-	w.Write(res)
+
+	response.SuccessJsonMessage(w, response.Resp{
+		Resp: result,
+		Message: "История покупок",
+		StatusCode: 200,
+	})
 	return
 }

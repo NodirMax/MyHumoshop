@@ -26,7 +26,7 @@ func StartRouter() {
 	routerCategory := router.PathPrefix("/category").Subrouter()
 	// public роуты
 	router.HandleFunc("/category", handlers.CategoryGET).Methods("GET")
-	router.HandleFunc("/category/{category_name}", handlers.CategoryGETbyid).Methods("GET")
+	router.HandleFunc("/category/id={id}", handlers.CategoryGETbyid).Methods("GET")
 	// private роуты, Используем middleware 
 	routerCategory.Use(middleware.ProtectedEndpoint)
 	routerCategory.HandleFunc("/", handlers.CategoryCreate).Methods("POST")
@@ -36,7 +36,7 @@ func StartRouter() {
 // роут относящийся к продукту
 	routerProduct := router.PathPrefix("/product").Subrouter()
 	// public роуты
-	router.HandleFunc("/product", handlers.ProductGet).Methods("GET")
+	router.HandleFunc("/product/id={id}", handlers.ProductGet).Methods("GET")
 	// private роуты, Используем middleware 
 	routerProduct.Use(middleware.ProtectedEndpoint)
 	routerProduct.HandleFunc("/", handlers.ProductCreate).Methods("POST")

@@ -27,8 +27,8 @@ func CategoryGETDB() (category []models.CategoryModel, err error) {
 }
 
 // Получение данных о категории из БД
-func CategoryGETbyidDB(categoryID int64) (product []models.ProductModel, err error) {
-rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", categoryID)
+func CategoryGETbyidDB(categoryID int) (product []models.ProductModel, err error) {
+	rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", categoryID)
 	if err != nil {
 		return
 	}
@@ -36,13 +36,19 @@ rows, err := db.DB.Query("SELECT * FROM product WHERE category_id=$1", categoryI
 
 	var p models.ProductModel
 	for rows.Next() {
-		err := rows.Scan(&p.ProductID, &p.ProductName, &p.ProductPrice, &p.InStock, &p.CategoryID)
+		err := rows.Scan(&p.ProductID, &p.ProductName, &p.ProductPrice, &p.InStock, &p.CategoryID, &p.CategoryName)
 		if err != nil {
 			log.Println("Ошибка row")
 			continue
 		}
 		product = append(product, p)
 	}
+	return
+}
+
+// Получении категории по имени
+func CategoryGETbyNameDB(CategoryName string) (ID int64) {
+	_ = db.DB.QueryRow("SELECT category_id FROM category WHERE category_name=$1", CategoryName).Scan(&ID)
 	return
 }
 

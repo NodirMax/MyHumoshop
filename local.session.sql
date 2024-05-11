@@ -7,8 +7,9 @@
 -- ALTER TABLE orders DROP COLUMN products
 -- ALTER TABLE orderproducts ADD COLUMN product_count INTEGER;
 -- SELECT * FROM users WHERE login
-
+-- SELECT * FROM category WHERE category_name='фрукты'
 -- SELECT o.order_id, o.user_id, o.totalcost, o.datatime, op.product_id, op.product_count
 -- 								FROM orders o
 -- 								JOIN orderproducts op ON o.order_id = op.order_id
 -- 								WHERE o.user_id=7
+-- SELECT * FROM product

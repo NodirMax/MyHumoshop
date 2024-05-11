@@ -4,13 +4,10 @@ import (
 	"HumoSHOP/api"
 	"HumoSHOP/config"
 	"HumoSHOP/pkg/db"
-	"log"
 )
 
 func main() {
-	log.Println("Starting to read config file...")
 	config.ReadConfig("config/config.json")
-	log.Println("Success!")
 
 	
 	db.DatabaseConnect()// Соединение с базой данных

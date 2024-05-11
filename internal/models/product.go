@@ -6,4 +6,5 @@ type ProductModel struct {
 	ProductPrice float64 `json:"product_price"`
 	InStock      bool    `json:"in_stock"`
 	CategoryID   int64   `json:"category_id"`
+	CategoryName string  `json:"category_name"`
 }

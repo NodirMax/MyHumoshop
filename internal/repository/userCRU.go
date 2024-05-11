@@ -20,7 +20,7 @@ func GetUserFromDB(login string) (user models.UserModel, err error) {
 }
 
 
-// Создание нового пользователя в Базу данных
+// Создание нового пользователя в Базe данных
 func CreateNewUserToDB(user models.UserModel) (err error) {
 	_, err = db.DB.Exec("INSERT INTO users(name, login, password) VALUES($1, $2, $3)", user.Name, user.Login, user.Password)
 	return
