@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"HumoSHOP/api/response"
 	"HumoSHOP/pkg/utils"
 	"net/http"
 )
@@ -11,8 +12,10 @@ func ProtectedEndpoint(h http.Handler) http.Handler {
 	
 	login, err := utils.ParseToken(tokenString)
 	if err != nil{
-		w.WriteHeader(401)
-		w.Write([]byte("Пользователь не обнаружен!"))
+		response.ErrorJsonMessage(w, response.Resp{
+			Message: "Пользлватель не авторизован",
+			StatusCode: 401,
+		})
 		return
 	}
 
