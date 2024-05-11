@@ -112,3 +112,8 @@ func UserUpdate(user models.UserModel) (err error) {
 	return
 }
 
+// Получение данных про всех пользователей
+func GetUserALL() (users []models.UserModel, err error) {
+	users, err = repository.GetUserALLDB()
+	return
+}

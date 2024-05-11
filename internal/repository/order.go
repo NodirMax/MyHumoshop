@@ -47,6 +47,59 @@ func OrderGetDB(userID int64) ([]OrderWithProducts, error) {
         JOIN orderproducts op ON o.order_id = op.orderid
         WHERE o.user_id=$1
     `, userID)
+    
+    if err != nil {
+        log.Println(err)
+        return nil, err
+    }
+    defer rows.Close()
+
+    orders := make(map[int64]*OrderWithProducts)
+
+    for rows.Next() {
+        var orderID int64
+        var userID int64
+        var totalCost float64
+        var datetime string
+        var productID int64
+        var productCount int64
+
+        err := rows.Scan(&orderID, &userID, &totalCost, &datetime, &productID, &productCount)
+        if err != nil {
+            log.Println(err)
+            continue
+        }
+
+        if order, ok := orders[orderID]; ok {
+            order.Products = append(order.Products, Product{
+                ProductID:    productID,
+                ProductCount: productCount,
+            })
+        } else {
+            orders[orderID] = &OrderWithProducts{
+                OrderID:   orderID,
+                UserID:    userID,
+                TotalCost: totalCost,
+                Datetime:  datetime,
+                Products:  []Product{{ProductID: productID, ProductCount: productCount}},
+            }
+        }
+    }
+
+    result := make([]OrderWithProducts, 0, len(orders))
+    for _, order := range orders {
+        result = append(result, *order)
+    }
+    return result, nil
+}
+
+func OrderGETALL() ([]OrderWithProducts, error) {
+    rows, err := db.DB.Query(`
+        SELECT o.order_id, o.user_id, o.totalcost, o.datatime, op.productid, op.product_count
+        FROM orders o
+        JOIN orderproducts op ON o.order_id = op.orderid
+    `)
+    
     if err != nil {
         log.Println(err)
         return nil, err

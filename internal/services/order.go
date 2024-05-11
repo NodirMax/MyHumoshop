@@ -36,3 +36,8 @@ func OrderGet(userID int64) (order []repository.OrderWithProducts, err error) {
 	order, err = repository.OrderGetDB(userID)
 	return
 }
+
+func OrderGetALL() (history []repository.OrderWithProducts, err error){
+	history, err = repository.OrderGETALL()
+	return
+}

@@ -67,5 +67,16 @@ func OrderGet(w http.ResponseWriter, r *http.Request)  {
 }
 
 func OrderGetAll(w http.ResponseWriter, r *http.Request)  {
-	
+	res, err := services.OrderGetALL()
+	if err != nil{
+		response.ErrorJsonMessage(w, response.Resp{
+			Message: "Ошибка при получении данных",
+			StatusCode: 500,
+		})
+	}
+	response.SuccessJsonMessage(w, response.Resp{
+		Resp: res,
+		Message: "Данные успешно получени",
+		StatusCode: 200,
+	})
 }

@@ -13,3 +13,6 @@
 -- 								JOIN orderproducts op ON o.order_id = op.order_id
 -- 								WHERE o.user_id=7
 -- SELECT * FROM product
+-- SELECT o.order_id, o.user_id, o.totalcost, o.datatime, op.productid, op.product_count
+--         FROM orders o
+--         JOIN orderproducts op ON o.order_id = op.orderid

@@ -196,5 +196,21 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+func UserGETAll(w http.ResponseWriter, r *http.Request) {
+	res, err := services.GetUserALL()
+	if err != nil{
+		response.ErrorJsonMessage(w, response.Resp{
+			Message: "Ошибка при получении данных",
+			StatusCode: 500,
+		})
+	}
+
+	response.SuccessJsonMessage(w, response.Resp{
+		Resp: res,
+		Message: "Данные пользователей",
+		StatusCode: 200,
+	})
+	return
+}
 // Обработчик user->profile/DELETE
 // Нет

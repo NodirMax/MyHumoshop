@@ -22,6 +22,7 @@ func StartRouter() {
 	routerProfile.HandleFunc("/", handlers.UserGET).Methods("GET")
 	routerProfile.HandleFunc("/", handlers.UserUpdate).Methods("PUT")
 
+
 // роут относящийся к категориям
 	routerCategory := router.PathPrefix("/category").Subrouter()
 	// public роуты
@@ -33,6 +34,7 @@ func StartRouter() {
 	routerCategory.HandleFunc("/", handlers.CategoryUpdate).Methods("PUT")
 	routerCategory.HandleFunc("/", handlers.CategoryDELETE).Methods("DELETE")
 
+
 // роут относящийся к продукту
 	routerProduct := router.PathPrefix("/product").Subrouter()
 	// public роуты
@@ -43,12 +45,18 @@ func StartRouter() {
 	routerProduct.HandleFunc("/", handlers.ProductUpdate).Methods("PUT")
 	routerProduct.HandleFunc("/", handlers.ProductDELETE).Methods("Delete")
 
+
 // роут относящийся к заказам
 	routerOrder := router.PathPrefix("/order").Subrouter()
 	// private роуты, Используем middleware
 	routerOrder.Use(middleware.ProtectedEndpoint)
 	routerOrder.HandleFunc("/", handlers.OrderCreate).Methods("POST")
 	routerOrder.HandleFunc("/", handlers.OrderGet).Methods("GET")
+
+
+// роут относящийся к админке
+	router.HandleFunc("/admin/users", handlers.UserGETAll).Methods("GET")
+	router.HandleFunc("/admin/purchaseALL", handlers.OrderGetAll).Methods("GET")
 
 
 	//Запуск сервера на порту 8080
