@@ -38,16 +38,18 @@ func OrderCreate(w http.ResponseWriter, r *http.Request) {
 
 // Получаем список покупок пользователя
 func OrderGet(w http.ResponseWriter, r *http.Request)  {
-	var order models.OrderModel
-	err := json.NewDecoder(r.Body).Decode(&order)
+	login := r.Header.Get("login")
+	user, err := services.GetUser(login)
 	if err != nil{
 		response.ErrorJsonMessage(w, response.Resp{
-			Message: "Ошибка при полученнии данных",
+			Message: "Ошибка при полученнии данных ",
 			StatusCode: 400,
 		})
+		return
 	}
+
 	
-	result, err := services.OrderGet(order.UserID)
+	result, err := services.OrderGet(user.Id)
 	if err != nil{
 		response.ErrorJsonMessage(w, response.Resp{
 			Message: "Ошибка на стороне сервера",
@@ -56,11 +58,14 @@ func OrderGet(w http.ResponseWriter, r *http.Request)  {
 	}
 
 
-
 	response.SuccessJsonMessage(w, response.Resp{
 		Resp: result,
 		Message: "История покупок",
 		StatusCode: 200,
 	})
 	return
+}
+
+func OrderGetAll(w http.ResponseWriter, r *http.Request)  {
+	
 }
