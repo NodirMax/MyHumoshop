@@ -2,7 +2,7 @@
 -- INSERT INTO users(name, login, password) VALUES ('Nodir', 'admin', 'admin')
 -- ALTER TABLE orders ADD COLUMN product_name varchar(100)
 -- SELECT * FROM orderproducts
--- SELECT * FROM orders
+SELECT * FROM orders
 -- ALTER TABLE orders DROP COLUMN product_id
 -- ALTER TABLE orders DROP COLUMN products
 -- ALTER TABLE orderproducts ADD COLUMN product_count INTEGER;

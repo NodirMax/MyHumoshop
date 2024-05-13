@@ -6,7 +6,7 @@ import (
 	"errors"
 	"log"
 
-	_ "github.com/lib/pq"
+	// _ "github.com/lib/pq"
 )
 
 func OrderProductCreateDB(orderID, productID, productCount int64) (err error){
@@ -40,6 +40,7 @@ type Product struct {
     ProductCount int64
 }
 
+// Получение данных о покупке пользователя
 func OrderGetDB(userID int64) ([]OrderWithProducts, error) {
     rows, err := db.DB.Query(`
         SELECT o.order_id, o.user_id, o.totalcost, o.datatime, op.productid, op.product_count
@@ -93,6 +94,8 @@ func OrderGetDB(userID int64) ([]OrderWithProducts, error) {
     return result, nil
 }
 
+
+// Получение данных о покупке Всех пользователей
 func OrderGETALL() ([]OrderWithProducts, error) {
     rows, err := db.DB.Query(`
         SELECT o.order_id, o.user_id, o.totalcost, o.datatime, op.productid, op.product_count

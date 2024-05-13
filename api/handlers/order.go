@@ -22,6 +22,13 @@ func OrderCreate(w http.ResponseWriter, r *http.Request) {
 
 	err = services.OrderCreate(order)
 	if err != nil{
+		if err.Error() == "ошибка при получении данных"{
+			response.ErrorJsonMessage(w, response.Resp{
+				Message: "ошибка при получении данных",
+				StatusCode: 400,
+			})
+			return
+		}
 		response.ErrorJsonMessage(w, response.Resp{
 			Message: "Ошибка на стороне сервера",
 			StatusCode: 500,
