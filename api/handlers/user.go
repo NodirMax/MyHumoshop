@@ -32,6 +32,12 @@ func AuthorizationUzer(w http.ResponseWriter, r *http.Request) {
 				StatusCode: 400,
 			})
 		
+		case "ошибка в пароле или имени пользователя":
+			response.ErrorJsonMessage(w, response.Resp{
+				Message: "ошибка в пароле или имени пользователя",
+				StatusCode: 400,
+			})
+		
         case "ошибка на стороне сервера":
             response.ErrorJsonMessage(w, response.Resp{
 				Message: "такого пользователя нет",

@@ -24,7 +24,7 @@ func AuthorizationUser(u models.UserModel) (token string,err error){
 	// Проверим пароль пользователя, после расхеширования
 	z :=  utils.HeshChecking(inf.Password, u.Password)
 	if z != nil{
-		return "", errors.New("такого пользователя нет")
+		return "", errors.New("ошибка в пароле или имени пользователя")
 	}
 
 	// Создаем новый токен
