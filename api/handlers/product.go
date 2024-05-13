@@ -42,6 +42,35 @@ func ProductGet(w http.ResponseWriter, r *http.Request) {
 }
 
 
+// Получение всех продуктов
+func ProductGETALL(w http.ResponseWriter, r *http.Request) {
+	// проверяем админ ли пользователь
+	login := r.Header.Get("login")
+	if middleware.AdminCheck(login) != nil{
+		response.ErrorJsonMessage(w ,response.Resp{
+			Message: "у вас недостаточно прав",
+			StatusCode: 403,
+		})
+		return
+	}
+	
+	products, err := services.ProductGETALL()
+	if err != nil{
+		response.ErrorJsonMessage(w, response.Resp{
+			Message: "Ошибка при получении данных",
+			StatusCode: 500,
+		})
+	}
+
+	response.SuccessJsonMessage(w, response.Resp{
+		Resp: products,
+		Message: "Данные успешно получени",
+		StatusCode: 200,
+	})
+	return
+}
+
+
 // Добавление нового продукта
 func ProductCreate(w http.ResponseWriter, r *http.Request) {
 	// проверяем админ ли пользователь 

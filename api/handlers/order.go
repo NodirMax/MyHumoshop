@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"HumoSHOP/api/middleware"
 	"HumoSHOP/api/response"
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/services"
@@ -72,8 +73,16 @@ func OrderGet(w http.ResponseWriter, r *http.Request)  {
 	})
 	return
 }
-
+   
 func OrderGetAll(w http.ResponseWriter, r *http.Request)  {
+	login := r.Header.Get("login")
+	if middleware.AdminCheck(login) != nil{
+		response.ErrorJsonMessage(w ,response.Resp{
+			Message: "у вас недостаточно прав",
+			StatusCode: 403,
+		})
+		return
+	}
 	res, err := services.OrderGetALL()
 	if err != nil{
 		response.ErrorJsonMessage(w, response.Resp{

@@ -15,6 +15,14 @@ func ProductGet(productID int64) (res models.ProductModel, err error) {
 	return 
 }
 
+
+// Получение всех продуктов
+func ProductGETALL() (products []models.ProductModel, err error) {
+	products, err = repository.ProductGetALLDB()
+	return
+}
+
+
 // Добавление нового продукта
 func ProductCreate(product models.ProductModel) (err error) {
 	if product.ProductName == ""{

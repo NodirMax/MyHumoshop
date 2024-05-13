@@ -8,10 +8,10 @@ import (
 
 func OrderCreate(order models.OrderModel) (err error) {
 	summa := 0.0
-	if order.UserID != 0{
+	if order.UserID == 0{
 		return errors.New("ошибка при получении данных")
 	}
-	
+
 	for _, product := range order.Products {
 		price, err := repository.ProductGetDB(product.ProductID)
 		if err != nil{

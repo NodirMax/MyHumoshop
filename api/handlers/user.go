@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"HumoSHOP/api/middleware"
 	"HumoSHOP/api/response"
 	"HumoSHOP/internal/models"
 	"HumoSHOP/internal/services"
@@ -197,6 +198,16 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserGETAll(w http.ResponseWriter, r *http.Request) {
+	// проверяем админ ли пользователь 
+	login := r.Header.Get("login")
+	if middleware.AdminCheck(login) != nil{
+		response.ErrorJsonMessage(w ,response.Resp{
+			Message: "у вас нету достаточно прав",
+			StatusCode: 403,
+		})
+		return
+	}
+
 	res, err := services.GetUserALL()
 	if err != nil{
 		response.ErrorJsonMessage(w, response.Resp{

@@ -55,8 +55,11 @@ func StartRouter() {
 
 
 // роут относящийся к админке
-	router.HandleFunc("/admin/users", handlers.UserGETAll).Methods("GET")
-	router.HandleFunc("/admin/purchaseALL", handlers.OrderGetAll).Methods("GET")
+	routerAdmin := router.PathPrefix("/admin").Subrouter()
+	routerAdmin.Use(middleware.ProtectedEndpoint)
+	routerAdmin.HandleFunc("/users", handlers.UserGETAll).Methods("GET")
+	routerAdmin.HandleFunc("/purchaseALL", handlers.OrderGetAll).Methods("GET")
+	routerAdmin.HandleFunc("/products", handlers.ProductGETALL).Methods("GET")
 
 
 	//Запуск сервера на порту 8080
